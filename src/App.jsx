@@ -1,40 +1,43 @@
 import { useState } from 'react';
 import { TaskInput, TasksList, Controls } from './components';
-const initialTasks = [
-  {
-    id: 1,
-    name: 'Learn React',
-    completed: true,
-  },
-  {
-    id: 2,
-    name: 'Learn JavaScript',
-    completed: false,
-  },
-  {
-    id: 3,
-    name: 'Learn xx',
-    completed: false,
-  },
-  {
-    id: 4,
-    name: 'Learn xxxx',
-    completed: false,
-  },
-  {
-    id: 5,
-    name: 'Learn xxxxxx',
-    completed: false,
-  },
-  {
-    id: 6,
-    name: 'Learn cccccc',
-    completed: false,
-  },
-];
+import useLocalStorage from './hook/useLocaleStorage';
+// const initialTasks = [
+//   {
+//     id: 1,
+//     name: 'Learn React',
+//     completed: true,
+//   },
+//   {
+//     id: 2,
+//     name: 'Learn JavaScript',
+//     completed: false,
+//   },
+//   {
+//     id: 3,
+//     name: 'Learn xx',
+//     completed: false,
+//   },
+//   {
+//     id: 4,
+//     name: 'Learn xxxx',
+//     completed: false,
+//   },
+//   {
+//     id: 5,
+//     name: 'Learn xxxxxx',
+//     completed: false,
+//   },
+//   {
+//     id: 6,
+//     name: 'Learn cccccc',
+//     completed: false,
+//   },
+// ];
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useLocalStorage('tasks', []);
+
   const [selectedTask, setSelectedTask] = useState(null);
   const [sortBy, setSortBy] = useState('all');
 
@@ -77,6 +80,17 @@ function App() {
 
     if (confirmed) setTasks([]);
   }
+
+  // useEffect(() => {
+  //   localStorage.setItem('tasks', JSON.stringify(tasks));
+  // }, [tasks]);
+
+  // useEffect(() => {
+  //   const tasks = JSON.parse(localStorage.getItem('tasks'));
+  //   if (tasks) {
+  //     setTasks(tasks);
+  //   }
+  // }, []);
 
   return (
     <div className="app">
