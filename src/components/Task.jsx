@@ -1,7 +1,7 @@
 import { MdDeleteOutline } from 'react-icons/md';
 import { BiEdit } from 'react-icons/bi';
 
-function Task({ task, onToggleTask, onRemoveTask, onEditTask }) {
+function Task({ task, onToggleTask, onRemoveTask, onSelectTask }) {
   return (
     <li className="task">
       <label>
@@ -15,7 +15,7 @@ function Task({ task, onToggleTask, onRemoveTask, onEditTask }) {
       </label>
 
       <div className="actions">
-        <span onClick={() => onEditTask(task)}>
+        <span onClick={() => onSelectTask(task.id)}>
           <BiEdit />
         </span>
         <span onClick={() => onRemoveTask(task.id)}>

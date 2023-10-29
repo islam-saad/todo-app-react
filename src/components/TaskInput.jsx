@@ -6,9 +6,15 @@ function TaskInput({ onAddTask, selectedTask }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!name) return;
-    const newTask = { id, name, completed: false };
+    let taskData = {};
+    // const newTask = { id, name, completed: false };
 
-    onAddTask(newTask);
+    if (selectedTask) {
+      taskData = { ...selectedTask, name: name, type: 'edit' };
+    } else {
+      taskData = { id, name, completed: false, type: 'insert' };
+    }
+    onAddTask(taskData);
     setName('');
   }
 

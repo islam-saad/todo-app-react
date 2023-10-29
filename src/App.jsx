@@ -51,8 +51,20 @@ function App() {
     sortedTasks = tasks.slice().filter((task) => task.completed);
 
   // let sortedTasks = tasks;
-  function handleAddTask(newTask) {
-    setTasks((tasks) => [...tasks, newTask]);
+  function handleTaskOperation(taskData) {
+    // setTasks((tasks) => [...tasks, newTask]);
+    if (taskData.type === 'insert') {
+      delete taskData.type;
+      setTasks([...tasks, taskData]);
+    } else {
+      delete taskData.type;
+
+      const updatedTasks = tasks.map((task) =>
+        task.id === taskData.id ? { ...taskData } : task
+      );
+      setTasks(updatedTasks);
+      setSelectedTask(null);
+    }
   }
 
   function handleToggleTask(id) {
@@ -67,11 +79,20 @@ function App() {
     setTasks((tasks) => tasks.filter((task) => task.id !== id));
   }
 
-  function handleEditTask(task) {
-    if (task.completed) return;
-    setSelectedTask(task);
-    const id = task.id;
-    setTasks((tasks) => tasks.filter((task) => task.id !== id));
+  function handleSelecteTask(id) {
+    setSelectedTask(tasks.find((task) => task.id === id));
+    // console.log(selectedTask);
+
+    // if (id === selectedTask.id) {
+    //   setTasks((tasks) =>
+    //     tasks.map((task) =>
+    //       task.id === id ? { ...task, name: task.name } : task
+    //     )
+    //   );
+    // }
+
+    // const id = task.id;
+    // setTasks((tasks) => tasks.filter((task) => task.id !== id));
   }
 
   function handleClearAllTasks() {
@@ -94,7 +115,7 @@ function App() {
 
   return (
     <div className="app">
-      <TaskInput onAddTask={handleAddTask} selectedTask={selectedTask} />
+      <TaskInput onAddTask={handleTaskOperation} selectedTask={selectedTask} />
       <Controls
         sortBy={sortBy}
         setSortBy={setSortBy}
@@ -104,7 +125,7 @@ function App() {
         tasks={sortedTasks}
         onToggleTask={handleToggleTask}
         onRemoveTask={handleRemoveTask}
-        onEditTask={handleEditTask}
+        onSelectTask={handleSelecteTask}
       />
     </div>
   );

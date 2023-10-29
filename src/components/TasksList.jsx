@@ -1,6 +1,6 @@
 import Task from './Task';
 
-function TasksList({ tasks, onToggleTask, onRemoveTask, onEditTask }) {
+function TasksList({ tasks, onToggleTask, onRemoveTask, onSelectTask }) {
   if (!tasks.length)
     return (
       <h3 style={{ textAlign: 'center', marginTop: '10px' }}>
@@ -15,7 +15,7 @@ function TasksList({ tasks, onToggleTask, onRemoveTask, onEditTask }) {
           task={task}
           onToggleTask={onToggleTask}
           onRemoveTask={onRemoveTask}
-          onEditTask={onEditTask}
+          onSelectTask={onSelectTask}
         />
       ))}
     </ul>
